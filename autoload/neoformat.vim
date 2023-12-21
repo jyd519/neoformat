@@ -223,6 +223,9 @@ endfunction
 function! s:get_node_exe(exe) abort
     let node_exe = findfile('node_modules/.bin/' . a:exe, getcwd() . ';')
     if !empty(node_exe) && executable(node_exe)
+        if has("win32")
+            let node_exe = substitute(node_exe, '\\', '/', 'g')
+        endif
         return node_exe
     endif
 
